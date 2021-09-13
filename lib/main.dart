@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
       create: (context) => BlocLogin(),
       child: MaterialApp(
         title: 'Loca Game',
-        theme: ThemeData.dark(),
+        theme: ThemeData(),
         home: PageWrapper(),
       ),
     );
