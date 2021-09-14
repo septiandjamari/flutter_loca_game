@@ -35,12 +35,17 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
       listDataTable = [];
     });
     await ApiSettingPoint.getPointHadiah().then((value) async {
-      await ApiSettingPoint.getInfoDepositPerPoint().then((value1) {
-        setState(() {
-          listDataTable = jsonDecode(value.body);
-          nilaiDeposit.text = jsonDecode(value1.body)["depositperpoint"].toString();
-          nilaiDepositString = jsonDecode(value1.body)["depositperpoint"].toString();
-        });
+      setState(() {
+        listDataTable = jsonDecode(value.body);
+      });
+    });
+  }
+
+  Future<void> getNilaiDeposit() async {
+    await ApiSettingPoint.getInfoDepositPerPoint().then((value1) {
+      setState(() {
+        nilaiDeposit.text = jsonDecode(value1.body)["depositperpoint"].toString();
+        nilaiDepositString = jsonDecode(value1.body)["depositperpoint"].toString();
       });
     });
   }
@@ -48,14 +53,11 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
   Future<void> setNilaiDeposit() async {
     setState(() {
       nilaiDepositEnabled = false;
+      nilaiDepositString = "";
     });
-    await ApiSettingPoint.setDepositPerPoint({"value": nilaiDeposit.text}).then((value) async {
-      await ApiSettingPoint.getInfoDepositPerPoint().then((value1) {
-        setState(() {
-          nilaiDeposit.text = jsonDecode(value1.body)["depositperpoint"].toString();
-          nilaiDepositEnabled = true;
-        });
-      });
+    await ApiSettingPoint.setDepositPerPoint({"value": nilaiDeposit.text}).then((value) {
+      getNilaiDeposit();
+      nilaiDepositEnabled = true;
     });
   }
 
@@ -81,6 +83,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
     tableScrollController1 = tablelinkedScrollController.addAndGet();
     tableScrollController2 = tablelinkedScrollController.addAndGet();
     loadDataTable();
+    getNilaiDeposit();
   }
 
   @override
@@ -143,7 +146,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
                       ? null
                       : () {
                           Map<String, dynamic> map = {
-                            "idpoint": dialogPage == 1 ? "" : listDataTable[indexListDataTable][""],
+                            "idpoint": dialogPage == 1 ? "" : listDataTable[indexListDataTable]["idpoint"],
                             "namahadiah": namaHadiah.text,
                             "jumlahpoint": jumlahPoint.text,
                             "keterangan": keterangan.text,
@@ -219,7 +222,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Container(width: lebar * 0.275, child: Text("Nama hadiah", style: TextStyle(color: Colors.white))),
+                      Container(width: lebar * 0.375, child: Text("Nama hadiah", style: TextStyle(color: Colors.white))),
                       Container(width: lebar * 0.275, child: Text("Jumlah point", style: TextStyle(color: Colors.white))),
                       Container(width: lebar * 0.275, child: Text("Keterangan", style: TextStyle(color: Colors.white))),
                       Container(width: lebar * 0.375, child: Center(child: Text("Aksi", style: TextStyle(color: Colors.white)))),
@@ -264,7 +267,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
                             height: 60,
                             child: Row(
                               children: [
-                                Container(width: lebar * 0.275, child: Text(e1["namahadiah"])),
+                                Container(width: lebar * 0.375, child: Text(e1["namahadiah"])),
                                 Container(width: lebar * 0.275, child: Text(e1["jumlahpoint"].toString())),
                                 Container(width: lebar * 0.275, child: Text(e1["keterangan"])),
                                 Container(
@@ -304,7 +307,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
                                                           onPressed: () {
                                                             Navigator.pop(ctx);
                                                             ApiSettingPoint.ngeDelPoint({
-                                                              "iduser": listDataTable[indexListDataTable]["iduser"],
+                                                              "iduser": e1["iduser"].toString(),
                                                             }).then((value) {
                                                               loadDataTable();
                                                             });
@@ -338,6 +341,17 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
   }
 
   Widget halamanTambahEdit() {
+    if (dialogPage == 2 && initEditState == 0) {
+      setState(() {
+        namaHadiah.text = listDataTable[indexListDataTable]["namahadiah"];
+        jumlahPoint.text = listDataTable[indexListDataTable]["jumlahpoint"].toString();
+        keterangan.text = listDataTable[indexListDataTable]["keterangan"];
+        namaHadiahString = listDataTable[indexListDataTable]["namahadiah"];
+        jumlahPointString = listDataTable[indexListDataTable]["jumlahpoint"].toString();
+        keteranganString = listDataTable[indexListDataTable]["keterangan"];
+        initEditState = 1;
+      });
+    }
     return SingleChildScrollView(
       child: Container(
         color: Colors.white10,
@@ -354,6 +368,11 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
                   decoration: InputDecoration(
                     hintText: "Nama Hadiah",
                   ),
+                  onChanged: (_) {
+                    setState(() {
+                      namaHadiahString = _;
+                    });
+                  },
                 ),
               ],
             ),
@@ -368,13 +387,17 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
                   decoration: InputDecoration(
                     hintText: "Jumlah Point",
                   ),
+                  onChanged: (_) {
+                    setState(() {
+                      jumlahPointString = _;
+                    });
+                  },
                 ),
               ],
             ),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-
                 SizedBox(height: 16),
                 Text("Keterangan", style: TextStyle(fontSize: 16)),
                 TextFormField(
@@ -382,6 +405,11 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
                   decoration: InputDecoration(
                     hintText: "Keterangan",
                   ),
+                  onChanged: (_) {
+                    setState(() {
+                      keteranganString = _;
+                    });
+                  },
                 ),
               ],
             ),

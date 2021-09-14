@@ -294,7 +294,7 @@ class _HalamanUtamaBillingState extends State<HalamanUtamaBilling> {
                   padding: EdgeInsets.all(8),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     childAspectRatio: 0.625,
-                    crossAxisCount: 2,
+                    crossAxisCount: MediaQuery.of(context).size.width < MediaQuery.of(context).size.height ? 2 : 3,
                     crossAxisSpacing: 8,
                     mainAxisSpacing: 8,
                   ),
@@ -333,32 +333,30 @@ class _HalamanUtamaBillingState extends State<HalamanUtamaBilling> {
                                       )
                                     ],
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                    child: Text("Nama : ${listBillingInfo[index].nama}"),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                    child: Text("Tarif : ${listBillingInfo[index].tarif}"),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                    child: Text("Waktu Mulai : ${listBillingInfo[index].waktuMulai}"),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                    child: Text("Durasi : ${listBillingInfo[index].durasi}"),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                    child: Text("Saldo : ${listBillingInfo[index].saldo}"),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                    child: Text("Rental : ${listBillingInfo[index].rental}"),
-                                  ),
                                 ],
                               ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text("${listBillingInfo[index].noMeja}", style: TextStyle(fontSize: 84, fontWeight: FontWeight.bold)),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("Nama : ${listBillingInfo[index].nama}", style: TextStyle(fontSize: 12)),
+                                    Text("Tarif : ${listBillingInfo[index].tarif}", style: TextStyle(fontSize: 12)),
+                                    Text("Waktu Mulai : ${listBillingInfo[index].waktuMulai}", style: TextStyle(fontSize: 12)),
+                                    Text("Durasi : ${listBillingInfo[index].durasi}", style: TextStyle(fontSize: 12)),
+                                    Text("Saldo : ${listBillingInfo[index].saldo}", style: TextStyle(fontSize: 12)),
+                                    Text("Rental : ${listBillingInfo[index].rental}", style: TextStyle(fontSize: 12)),
+                                  ],
+                                ),
+                              ],
                             ),
                             Material(
                               color: Colors.white,
@@ -417,15 +415,10 @@ class _HalamanUtamaBillingState extends State<HalamanUtamaBilling> {
             width: 0.5,
           )),
       child: Padding(
-        padding: const EdgeInsets.all(4),
+        padding: const EdgeInsets.all(8),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(
-              "${listBillingInfo[nomorMeja].noMeja + 1}",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-            ),
-            SizedBox(width: 6),
             Text(
               "${listBillingInfo[nomorMeja].jenisPS}",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
