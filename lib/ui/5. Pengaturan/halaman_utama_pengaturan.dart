@@ -4,7 +4,7 @@ import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/2.halaman_da
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/3.halaman_daftar_harga_paket_ps.dart';
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/4.dialog_daftar_operator.dart';
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/5.dialog_setting_point.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/dialog_setting_voucher.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/6.dialog_setting_voucher.dart';
 
 class HalamanUtamaPengaturan extends StatefulWidget {
   const HalamanUtamaPengaturan({Key? key}) : super(key: key);

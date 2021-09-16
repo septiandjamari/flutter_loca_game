@@ -54,7 +54,7 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
         return StatefulBuilder(builder: (BuildContext __, StateSetter setter) {
           _stateSetterJenisTarif = setter;
           return AlertDialog(
-            title: Text("Jenis PS"),
+            title: Text("Jenis Tarif"),
             contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
             content: Container(
               color: Colors.white10,
@@ -78,17 +78,17 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
             ),
             actions: [
               TextButton(
+                onPressed: () {
+                  Navigator.pop(__);
+                },
+                child: Text("CANCEL"),
+              ),
+              TextButton(
                 onPressed: () async {
                   Navigator.pop(__);
                   actionJenisTarifListener(indexStringListJenisTarif);
                 },
                 child: Text("OKAY"),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(__);
-                },
-                child: Text("CANCEL"),
               ),
             ],
           );

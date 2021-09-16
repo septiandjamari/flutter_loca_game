@@ -315,7 +315,7 @@ class _DialogDaftarOperatorState extends State<DialogDaftarOperator> {
                                                         onPressed: () {
                                                           Navigator.pop(ctx);
                                                           ApiDaftarOperator.ngeDelUser({
-                                                            "iduser": listDataTable[indexListDataTable]["iduser"],
+                                                            "iduser": e1["iduser"].toString(),
                                                           }).then((value) {
                                                             loadDataTable();
                                                           });
@@ -350,8 +350,8 @@ class _DialogDaftarOperatorState extends State<DialogDaftarOperator> {
   Widget halamanTambahEdit() {
     if (dialogPage == 2 && initEditState == 0) {
       setState(() {
-        username = TextEditingController(text: listDataTable[indexListDataTable]["username"]);
-        password = TextEditingController(text: listDataTable[indexListDataTable]["password"]);
+        username.text = listDataTable[indexListDataTable]["username"];
+        password.text = listDataTable[indexListDataTable]["password"];
         usernameString = listDataTable[indexListDataTable]["username"];
         passwordString = listDataTable[indexListDataTable]["password"];
         roleSelected = listDataTable[indexListDataTable]["role"].split(",");

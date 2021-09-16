@@ -32,7 +32,7 @@ class ApiDaftarOperator {
 
   static Future<void> ngeDelUser(Map<String, dynamic> map) async {
     http.Response response = await http.post(
-      Uri.parse("${AuthService.url}/user/admin/a"),
+      Uri.parse("${AuthService.url}/user/admin/r"),
       body: jsonEncode(map),
       headers: await AuthService.authorizationHeader(),
     );

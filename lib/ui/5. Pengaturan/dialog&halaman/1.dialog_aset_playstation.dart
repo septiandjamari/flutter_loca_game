@@ -96,17 +96,17 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
               ),
               actions: [
                 TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text("CANCEL"),
+                ),
+                TextButton(
                   onPressed: () async {
                     Navigator.pop(context);
                     actionListener(_indexRadioKategori);
                   },
                   child: Text("OKAY"),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text("CANCEL"),
                 ),
               ],
             );
