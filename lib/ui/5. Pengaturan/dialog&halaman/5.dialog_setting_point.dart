@@ -126,7 +126,6 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
               ],
             ),
       insetPadding: EdgeInsets.all(24),
-      contentPadding: EdgeInsets.all(12),
       content: Container(
         width: MediaQuery.of(context).size.width,
         constraints: BoxConstraints(minHeight: 200, maxHeight: 360),
@@ -171,172 +170,169 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
 
   Widget halamanAwal(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
-    return Container(
-      padding: EdgeInsets.all(8),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Setting nilai deposit setiap point"),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: [
-              Flexible(
-                child: Container(
-                  child: TextFormField(
-                    controller: nilaiDeposit,
-                    enabled: nilaiDepositEnabled,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(hintText: "Masukkan nilai deposit"),
-                    onChanged: (_) {
-                      setState(() {
-                        nilaiDepositString = _;
-                      });
-                    },
-                  ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Setting nilai deposit setiap point"),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            Flexible(
+              child: Container(
+                child: TextFormField(
+                  controller: nilaiDeposit,
+                  enabled: nilaiDepositEnabled,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(hintText: "Masukkan nilai deposit"),
+                  onChanged: (_) {
+                    setState(() {
+                      nilaiDepositString = _;
+                    });
+                  },
                 ),
               ),
-              TextButton(
-                onPressed: nilaiDepositString == ""
-                    ? null
-                    : () {
-                        setNilaiDeposit();
-                      },
-                child: Text("SAVE"),
-              ),
+            ),
+            TextButton(
+              onPressed: nilaiDepositString == ""
+                  ? null
+                  : () {
+                      setNilaiDeposit();
+                    },
+              child: Text("SAVE"),
+            ),
+          ],
+        ),
+        SizedBox(height: 8),
+        Container(
+          color: Colors.blue,
+          height: 60,
+          child: Row(
+            children: [
+              Material(
+                  elevation: 4,
+                  color: Colors.blue,
+                  child: Container(width: lebar * 0.125, child: Center(child: Text("No.", style: TextStyle(color: Colors.white))))),
+              Expanded(
+                  child: SingleChildScrollView(
+                controller: tableScrollController1,
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(width: lebar * 0.375, child: Text("Nama hadiah", style: TextStyle(color: Colors.white))),
+                    Container(width: lebar * 0.275, child: Text("Jumlah point", style: TextStyle(color: Colors.white))),
+                    Container(width: lebar * 0.275, child: Text("Keterangan", style: TextStyle(color: Colors.white))),
+                    Container(width: lebar * 0.375, child: Center(child: Text("Aksi", style: TextStyle(color: Colors.white)))),
+                  ],
+                ),
+              ))
             ],
           ),
-          SizedBox(height: 8),
-          Container(
-            color: Colors.blue,
-            height: 60,
+        ),
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.vertical,
             child: Row(
               children: [
-                Material(
-                    elevation: 4,
-                    color: Colors.blue,
-                    child: Container(width: lebar * 0.125, child: Center(child: Text("No.", style: TextStyle(color: Colors.white))))),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: listDataTable.map((e) {
+                    int index = listDataTable.indexOf(e) + 1;
+                    return Material(
+                      elevation: 4,
+                      child: Container(
+                        color: index % 2 == 0 ? Colors.transparent : Colors.black12,
+                        height: 60,
+                        child: Row(
+                          children: [
+                            Container(width: lebar * 0.125, child: Center(child: Text("$index."))),
+                          ],
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
                 Expanded(
-                    child: SingleChildScrollView(
-                  controller: tableScrollController1,
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(width: lebar * 0.375, child: Text("Nama hadiah", style: TextStyle(color: Colors.white))),
-                      Container(width: lebar * 0.275, child: Text("Jumlah point", style: TextStyle(color: Colors.white))),
-                      Container(width: lebar * 0.275, child: Text("Keterangan", style: TextStyle(color: Colors.white))),
-                      Container(width: lebar * 0.375, child: Center(child: Text("Aksi", style: TextStyle(color: Colors.white)))),
-                    ],
-                  ),
-                ))
-              ],
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              scrollDirection: Axis.vertical,
-              child: Row(
-                children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: listDataTable.map((e) {
-                      int index = listDataTable.indexOf(e) + 1;
-                      return Material(
-                        elevation: 4,
-                        child: Container(
-                          color: index % 2 == 0 ? Colors.transparent : Colors.black12,
+                  child: SingleChildScrollView(
+                    controller: tableScrollController2,
+                    scrollDirection: Axis.horizontal,
+                    child: Column(
+                      children: listDataTable.map((e1) {
+                        int index = listDataTable.indexOf(e1);
+                        return Container(
+                          color: index % 2 != 0 ? Colors.transparent : Colors.black12,
                           height: 60,
                           child: Row(
                             children: [
-                              Container(width: lebar * 0.125, child: Center(child: Text("$index."))),
-                            ],
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                  Expanded(
-                    child: SingleChildScrollView(
-                      controller: tableScrollController2,
-                      scrollDirection: Axis.horizontal,
-                      child: Column(
-                        children: listDataTable.map((e1) {
-                          int index = listDataTable.indexOf(e1);
-                          return Container(
-                            color: index % 2 != 0 ? Colors.transparent : Colors.black12,
-                            height: 60,
-                            child: Row(
-                              children: [
-                                Container(width: lebar * 0.375, child: Text(e1["namahadiah"])),
-                                Container(width: lebar * 0.275, child: Text(e1["jumlahpoint"].toString())),
-                                Container(width: lebar * 0.275, child: Text(e1["keterangan"])),
-                                Container(
-                                  width: lebar * 0.375,
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        IconButton(
-                                          icon: Icon(Icons.edit, color: Colors.green),
-                                          onPressed: () {
-                                            setState(() {
-                                              dialogPage = 2;
-                                              initEditState = 0;
-                                              indexListDataTable = index;
-                                            });
-                                          },
-                                        ),
-                                        IconButton(
-                                          icon: Icon(Icons.delete, color: Colors.red),
-                                          onPressed: () {
-                                            showDialog(
-                                              context: context,
-                                              builder: (ctx) => AlertDialog(
-                                                title: Text("Hapus data Aset PS"),
-                                                content: Text("Apakah anda yakin untuk menghapus data user ${e1["username"]} ?"),
-                                                actions: [
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment.end,
-                                                    children: [
-                                                      TextButton(
-                                                          onPressed: () {
-                                                            Navigator.pop(ctx);
-                                                          },
-                                                          child: Text("CANCEL")),
-                                                      TextButton(
-                                                          onPressed: () {
-                                                            Navigator.pop(ctx);
-                                                            ApiSettingPoint.ngeDelPoint({
-                                                              "iduser": e1["iduser"].toString(),
-                                                            }).then((value) {
-                                                              loadDataTable();
-                                                            });
-                                                          },
-                                                          child: Text("OKAY")),
-                                                    ],
-                                                  )
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                        ),
-                                      ],
-                                    ),
+                              Container(width: lebar * 0.375, child: Text(e1["namahadiah"])),
+                              Container(width: lebar * 0.275, child: Text(e1["jumlahpoint"].toString())),
+                              Container(width: lebar * 0.275, child: Text(e1["keterangan"])),
+                              Container(
+                                width: lebar * 0.375,
+                                child: Center(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      IconButton(
+                                        icon: Icon(Icons.edit, color: Colors.green),
+                                        onPressed: () {
+                                          setState(() {
+                                            dialogPage = 2;
+                                            initEditState = 0;
+                                            indexListDataTable = index;
+                                          });
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: Icon(Icons.delete, color: Colors.red),
+                                        onPressed: () {
+                                          showDialog(
+                                            context: context,
+                                            builder: (ctx) => AlertDialog(
+                                              title: Text("Hapus data Aset PS"),
+                                              content: Text("Apakah anda yakin untuk menghapus data user ${e1["username"]} ?"),
+                                              actions: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.end,
+                                                  children: [
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(ctx);
+                                                        },
+                                                        child: Text("CANCEL")),
+                                                    TextButton(
+                                                        onPressed: () {
+                                                          Navigator.pop(ctx);
+                                                          ApiSettingPoint.ngeDelPoint({
+                                                            "iduser": e1["iduser"].toString(),
+                                                          }).then((value) {
+                                                            loadDataTable();
+                                                          });
+                                                        },
+                                                        child: Text("OKAY")),
+                                                  ],
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                      ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }).toList(),
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -353,68 +349,64 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
       });
     }
     return SingleChildScrollView(
-      child: Container(
-        color: Colors.white10,
-        padding: EdgeInsets.all(8),
-        child: Column(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Text("Nama Hadiah", style: TextStyle(fontSize: 16)),
-                TextFormField(
-                  controller: namaHadiah,
-                  decoration: InputDecoration(
-                    hintText: "Nama Hadiah",
-                  ),
-                  onChanged: (_) {
-                    setState(() {
-                      namaHadiahString = _;
-                    });
-                  },
+      child: Column(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text("Nama Hadiah", style: TextStyle(fontSize: 16)),
+              TextFormField(
+                controller: namaHadiah,
+                decoration: InputDecoration(
+                  hintText: "Nama Hadiah",
                 ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Text("Jumlah Point", style: TextStyle(fontSize: 16)),
-                TextFormField(
-                  controller: jumlahPoint,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "Jumlah Point",
-                  ),
-                  onChanged: (_) {
-                    setState(() {
-                      jumlahPointString = _;
-                    });
-                  },
+                onChanged: (_) {
+                  setState(() {
+                    namaHadiahString = _;
+                  });
+                },
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text("Jumlah Point", style: TextStyle(fontSize: 16)),
+              TextFormField(
+                controller: jumlahPoint,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: "Jumlah Point",
                 ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Text("Keterangan", style: TextStyle(fontSize: 16)),
-                TextFormField(
-                  controller: keterangan,
-                  decoration: InputDecoration(
-                    hintText: "Keterangan",
-                  ),
-                  onChanged: (_) {
-                    setState(() {
-                      keteranganString = _;
-                    });
-                  },
+                onChanged: (_) {
+                  setState(() {
+                    jumlahPointString = _;
+                  });
+                },
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text("Keterangan", style: TextStyle(fontSize: 16)),
+              TextFormField(
+                controller: keterangan,
+                decoration: InputDecoration(
+                  hintText: "Keterangan",
                 ),
-              ],
-            ),
-          ],
-        ),
+                onChanged: (_) {
+                  setState(() {
+                    keteranganString = _;
+                  });
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

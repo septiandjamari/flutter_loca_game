@@ -108,9 +108,7 @@ class _DialogPembayaranState extends State<DialogPembayaran> {
         return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
             title: Text("Kirim Pesan"),
-            contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
             content: Container(
-              color: Colors.white10,
               padding: EdgeInsets.all(12),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -151,11 +149,8 @@ class _DialogPembayaranState extends State<DialogPembayaran> {
         mainAxisSize: MainAxisSize.max,
         children: [Text("Pembayaran meja : "), SizedBox(width: 6), mejaBadge(widget.index)],
       ),
-      contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
       content: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.all(10),
-          color: Colors.white10,
           width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

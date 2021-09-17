@@ -170,7 +170,6 @@ class _DialogDaftarOperatorState extends State<DialogDaftarOperator> {
               ],
             ),
       insetPadding: EdgeInsets.all(24),
-      contentPadding: EdgeInsets.all(12),
       content: Container(
         width: MediaQuery.of(context).size.width,
         constraints: BoxConstraints(minHeight: 200, maxHeight: 360),
@@ -359,75 +358,69 @@ class _DialogDaftarOperatorState extends State<DialogDaftarOperator> {
       });
     }
     return SingleChildScrollView(
-      child: Container(
-        color: Colors.white10,
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Text("Username", style: TextStyle(fontSize: 16)),
-                TextFormField(
-                  controller: username,
-                  decoration: InputDecoration(hintText: "Username"),
-                  onChanged: (_) {
-                    setState(() {
-                      usernameString = _;
-                    });
-                  },
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Text("Password", style: TextStyle(fontSize: 16)),
-                TextFormField(
-                  controller: password,
-                  obscureText: !passwordVisibility,
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                    suffixIcon: IconButton(
-                      onPressed: () {
-                        setState(() {
-                          if (passwordVisibility == false) {
-                            passwordVisibility = true;
-                          } else {
-                            passwordVisibility = false;
-                          }
-                        });
-                      },
-                      icon: Icon(!passwordVisibility ? Icons.visibility : Icons.visibility_off),
-                    ),
-                  ),
-                  onChanged: (_) {
-                    setState(() {
-                      passwordString = _;
-                    });
-                  },
-                ),
-              ],
-            ),
-            SizedBox(height: 16),
-            Material(
-              color: Colors.transparent,
-              child: ListTile(
-                tileColor: Colors.white10,
-                title: Text("Role"),
-                leading: Icon(Icons.sort),
-                trailing: Text(roleSelected.isEmpty ? "Pilih role" : roleSelected.join(",")),
-                onTap: () {
-                  dialogSelectRole(context);
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text("Username", style: TextStyle(fontSize: 16)),
+              TextFormField(
+                controller: username,
+                decoration: InputDecoration(hintText: "Username"),
+                onChanged: (_) {
+                  setState(() {
+                    usernameString = _;
+                  });
                 },
               ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text("Password", style: TextStyle(fontSize: 16)),
+              TextFormField(
+                controller: password,
+                obscureText: !passwordVisibility,
+                decoration: InputDecoration(
+                  hintText: "Password",
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        if (passwordVisibility == false) {
+                          passwordVisibility = true;
+                        } else {
+                          passwordVisibility = false;
+                        }
+                      });
+                    },
+                    icon: Icon(!passwordVisibility ? Icons.visibility : Icons.visibility_off),
+                  ),
+                ),
+                onChanged: (_) {
+                  setState(() {
+                    passwordString = _;
+                  });
+                },
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Material(
+            child: ListTile(
+              title: Text("Role"),
+              leading: Icon(Icons.sort),
+              trailing: Text(roleSelected.isEmpty ? "Pilih role" : roleSelected.join(",")),
+              onTap: () {
+                dialogSelectRole(context);
+              },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

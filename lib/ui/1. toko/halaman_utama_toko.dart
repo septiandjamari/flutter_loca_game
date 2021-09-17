@@ -119,7 +119,6 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.475,
                       child: ListTile(
-                        tileColor: Colors.white10,
                         leading: Icon(Icons.sort),
                         title: Text("Kategori"),
                         subtitle: Text("kucing", overflow: TextOverflow.ellipsis),
@@ -133,7 +132,6 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.475,
                       child: ListTile(
-                        tileColor: Colors.white10,
                         leading: Icon(Icons.sort),
                         title: Text("Level Harga"),
                         subtitle: Text("kucing", overflow: TextOverflow.ellipsis),

@@ -185,10 +185,8 @@ class _HalamanUtamaBillingState extends State<HalamanUtamaBilling> {
           mainAxisSize: MainAxisSize.max,
           children: [Text("Note untuk : "), SizedBox(width: 6), mejaBadge(index)],
         ),
-        contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
         content: SingleChildScrollView(
           child: Container(
-            color: Colors.white10,
             width: MediaQuery.of(context).size.width,
             constraints: BoxConstraints(minHeight: 200, maxHeight: 360),
             child: Column(
