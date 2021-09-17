@@ -116,6 +116,12 @@ class _DialogSettingVoucherState extends State<DialogSettingVoucher> {
       stringListJenisPS = "PS3";
       expired.text = "";
       menit.text = "";
+      namaVoucherString= "";
+      pointString = "";
+      kodeVoucherString = "";
+      keteranganString = "";
+      expiredString = "";
+      menitString = "";
     });
   }
 
@@ -448,7 +454,8 @@ class _DialogSettingVoucherState extends State<DialogSettingVoucher> {
                       SizedBox(height: 16),
                       Text("Kode Voucher", style: TextStyle(fontSize: 16)),
                       TextFormField(
-                        controller: point,
+                        controller: kodeVoucher,
+                        enabled: false,
                         decoration: InputDecoration(
                           hintText: "Kode Voucher",
                         ),

@@ -12,8 +12,8 @@ class AuthService {
   static String spUser = "spUser";
 
   // static String url = "http://192.168.0.150:5000"; // wifi kak raf
-  // static String url = "http://192.168.43.115:5000"; // wifi hp laptop
-  static String url = "http://192.168.43.9:5000"; // wifi hp komputer
+  static String url = "http://192.168.43.115:5000"; // wifi hp laptop
+  // static String url = "http://192.168.43.9:5000"; // wifi hp komputer
 
   static Future<http.Response> login({required String username, required String password}) async {
     http.Response response = await http.post(
