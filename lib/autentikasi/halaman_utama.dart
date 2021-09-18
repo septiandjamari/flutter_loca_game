@@ -96,22 +96,53 @@ class _HalamanUtamaState extends State<HalamanUtama> {
             ? [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextButton.icon(
-                    style: TextButton.styleFrom(primary: Colors.white, backgroundColor: Colors.black38),
+                  child: OutlinedButton.icon(
+                    style: TextButton.styleFrom(
+                        primary: Colors.white,
+                        backgroundColor: Colors.blue,
+                        side: BorderSide(
+                          color: Colors.white,
+                          width: 1,
+                        )),
                     onPressed: () {
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HalamanTambahEditMember(
-                                    addOrEdit: "add",
-                                  )));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => HalamanTambahEditMember(addOrEdit: "add", map: {}),
+                        ),
+                      );
                     },
                     icon: Icon(Icons.add),
                     label: Text("TAMBAH MEMBER"),
                   ),
                 )
               ]
-            : [],
+            : _page == 3
+                ? [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: OutlinedButton.icon(
+                        style: TextButton.styleFrom(
+                            primary: Colors.white,
+                            backgroundColor: Colors.blue,
+                            side: BorderSide(
+                              color: Colors.white,
+                              width: 1,
+                            )),
+                        onPressed: () {
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => HalamanTambahEditMember(
+                          //               addOrEdit: "add",
+                          //             )));
+                        },
+                        icon: Icon(Icons.refresh),
+                        label: Text("REFRESH"),
+                      ),
+                    ),
+                  ]
+                : [],
       ),
       drawer: menuDrawer(),
       body: Center(
@@ -147,7 +178,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
               icon: Icon(
                 Icons.description_outlined,
               ),
-              label: 'Catatan'),
+              label: 'Laporan'),
         ],
       ),
     );

@@ -5,11 +5,10 @@ import 'package:http/http.dart' as http;
 
 class ApiAsetPlaystation {
   static Future<http.Response> viewAset() async {
-    http.Response response = await http.get(
+    return await http.get(
       Uri.parse("${AuthService.url}/asetps/v"),
       headers: await AuthService.authorizationHeader(),
     );
-    return response;
   }
 
   static Future<void> tambahMeja({required Map<String, dynamic> map}) async {

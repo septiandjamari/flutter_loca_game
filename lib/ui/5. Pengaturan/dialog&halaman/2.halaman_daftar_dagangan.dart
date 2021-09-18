@@ -247,10 +247,9 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
 
   Widget mainPage(BuildContext context) {
     double gridSize1 = MediaQuery.of(context).size.width / 11;
-    // double gridSize2 = MediaQuery.of(context).size.width / 2.5;
     double gridSize3 = MediaQuery.of(context).size.width / 3;
     double gridSize4 = MediaQuery.of(context).size.width / 2;
-    // double gridSize5 = MediaQuery.of(context).size.width / 4;
+
     return Container(
       constraints: BoxConstraints(
         minWidth: MediaQuery.of(context).size.width,
