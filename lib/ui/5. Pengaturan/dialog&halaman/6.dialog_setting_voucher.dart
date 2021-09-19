@@ -48,26 +48,22 @@ class _DialogSettingVoucherState extends State<DialogSettingVoucher> {
           _stateSetterJenisPS = setter;
           return AlertDialog(
             title: Text("Jenis PS"),
-            contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
-            content: Container(
-              color: Colors.white10,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: listJenisPS
-                    .map(
-                      (e) => RadioListTile(
-                        value: e,
-                        groupValue: indexStringListJenisPS,
-                        title: Text("$e"),
-                        onChanged: (dynamic value) {
-                          _stateSetterJenisPS(() {
-                            indexStringListJenisPS = value;
-                          });
-                        },
-                      ),
-                    )
-                    .toList(),
-              ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: listJenisPS
+                  .map(
+                    (e) => RadioListTile(
+                      value: e,
+                      groupValue: indexStringListJenisPS,
+                      title: Text("$e"),
+                      onChanged: (dynamic value) {
+                        _stateSetterJenisPS(() {
+                          indexStringListJenisPS = value;
+                        });
+                      },
+                    ),
+                  )
+                  .toList(),
             ),
             actions: [
               TextButton(
@@ -116,7 +112,7 @@ class _DialogSettingVoucherState extends State<DialogSettingVoucher> {
       stringListJenisPS = "PS3";
       expired.text = "";
       menit.text = "";
-      namaVoucherString= "";
+      namaVoucherString = "";
       pointString = "";
       kodeVoucherString = "";
       keteranganString = "";
@@ -189,7 +185,6 @@ class _DialogSettingVoucherState extends State<DialogSettingVoucher> {
               ],
             ),
       insetPadding: EdgeInsets.all(24),
-      contentPadding: EdgeInsets.all(12),
       content: Container(
         width: MediaQuery.of(context).size.width,
         constraints: BoxConstraints(minHeight: 200, maxHeight: 360),
@@ -405,152 +400,146 @@ class _DialogSettingVoucherState extends State<DialogSettingVoucher> {
       });
     }
     return SingleChildScrollView(
-      child: Container(
-        padding: EdgeInsets.all(12),
-        color: Colors.white10,
-        child: Column(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Nama Voucher", style: TextStyle(fontSize: 16)),
-                TextFormField(
-                  controller: namaVoucher,
-                  decoration: InputDecoration(
-                    hintText: "Nama Voucher",
-                  ),
-                  onChanged: (_) {
-                    setState(() {
-                      namaVoucherString = _;
-                    });
-                  },
+      child: Column(
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Nama Voucher", style: TextStyle(fontSize: 16)),
+              TextFormField(
+                controller: namaVoucher,
+                decoration: InputDecoration(
+                  hintText: "Nama Voucher",
                 ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Text("Point", style: TextStyle(fontSize: 16)),
-                TextFormField(
-                  controller: point,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "Point",
-                  ),
-                  onChanged: (_) {
-                    setState(() {
-                      pointString = _;
-                    });
-                  },
+                onChanged: (_) {
+                  setState(() {
+                    namaVoucherString = _;
+                  });
+                },
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text("Point", style: TextStyle(fontSize: 16)),
+              TextFormField(
+                controller: point,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: "Point",
                 ),
-              ],
-            ),
-            dialogPage == 1
-                ? SizedBox()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 16),
-                      Text("Kode Voucher", style: TextStyle(fontSize: 16)),
-                      TextFormField(
-                        controller: kodeVoucher,
-                        enabled: false,
-                        decoration: InputDecoration(
-                          hintText: "Kode Voucher",
-                        ),
-                        onChanged: (_) {
-                          setState(() {
-                            pointString = _;
-                          });
-                        },
+                onChanged: (_) {
+                  setState(() {
+                    pointString = _;
+                  });
+                },
+              ),
+            ],
+          ),
+          dialogPage == 1
+              ? SizedBox()
+              : Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 16),
+                    Text("Kode Voucher", style: TextStyle(fontSize: 16)),
+                    TextFormField(
+                      controller: kodeVoucher,
+                      enabled: false,
+                      decoration: InputDecoration(
+                        hintText: "Kode Voucher",
                       ),
-                    ],
-                  ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Text("Keterangan", style: TextStyle(fontSize: 16)),
-                TextFormField(
-                  controller: keterangan,
-                  decoration: InputDecoration(
-                    hintText: "Keterangan",
-                  ),
-                  onChanged: (_) {
-                    setState(() {
-                      keteranganString = _;
-                    });
-                  },
-                ),
-              ],
-            ),
-            Column(
-              children: [
-                SizedBox(height: 16),
-                Material(
-                  elevation: 0,
-                  child: Container(
-                    width: MediaQuery.of(context).size.width,
-                    child: ListTile(
-                      dense: true,
-                      tileColor: Colors.white10,
-                      leading: Icon(Icons.sort),
-                      title: Text("Jenis PS"),
-                      trailing: Text("$stringListJenisPS", overflow: TextOverflow.ellipsis),
-                      onTap: () {
-                        dialogJenisPS(context: context);
+                      onChanged: (_) {
+                        setState(() {
+                          pointString = _;
+                        });
                       },
                     ),
-                  ),
-                ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Row(
-                  children: [
-                    Text("Expired", style: TextStyle(fontSize: 16)),
-                    Text(" * dalam jumlah hari", style: TextStyle(color: Colors.red)),
                   ],
                 ),
-                TextFormField(
-                  controller: expired,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "Expired",
-                  ),
-                  onChanged: (_) {
-                    setState(() {
-                      expiredString = _;
-                    });
-                  },
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text("Keterangan", style: TextStyle(fontSize: 16)),
+              TextFormField(
+                controller: keterangan,
+                decoration: InputDecoration(
+                  hintText: "Keterangan",
                 ),
-              ],
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: 16),
-                Text("Menit", style: TextStyle(fontSize: 16)),
-                TextFormField(
-                  controller: menit,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    hintText: "Menit",
+                onChanged: (_) {
+                  setState(() {
+                    keteranganString = _;
+                  });
+                },
+              ),
+            ],
+          ),
+          Column(
+            children: [
+              SizedBox(height: 16),
+              Material(
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: ListTile(
+                    dense: true,
+                    leading: Icon(Icons.sort),
+                    title: Text("Jenis PS"),
+                    trailing: Text("$stringListJenisPS", overflow: TextOverflow.ellipsis),
+                    onTap: () {
+                      dialogJenisPS(context: context);
+                    },
                   ),
-                  onChanged: (_) {
-                    setState(() {
-                      menitString = _;
-                    });
-                  },
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Row(
+                children: [
+                  Text("Expired", style: TextStyle(fontSize: 16)),
+                  Text(" * dalam jumlah hari", style: TextStyle(color: Colors.red)),
+                ],
+              ),
+              TextFormField(
+                controller: expired,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: "Expired",
+                ),
+                onChanged: (_) {
+                  setState(() {
+                    expiredString = _;
+                  });
+                },
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 16),
+              Text("Menit", style: TextStyle(fontSize: 16)),
+              TextFormField(
+                controller: menit,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  hintText: "Menit",
+                ),
+                onChanged: (_) {
+                  setState(() {
+                    menitString = _;
+                  });
+                },
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

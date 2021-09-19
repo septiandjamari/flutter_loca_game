@@ -55,26 +55,22 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
           _stateSetterJenisTarif = setter;
           return AlertDialog(
             title: Text("Jenis Tarif"),
-            contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
-            content: Container(
-              color: Colors.white10,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: listjenisTarif
-                    .map(
-                      (e) => RadioListTile(
-                        value: e,
-                        groupValue: indexStringListJenisTarif,
-                        title: Text(capitalize("$e")),
-                        onChanged: (dynamic value) {
-                          _stateSetterJenisTarif(() {
-                            indexStringListJenisTarif = value;
-                          });
-                        },
-                      ),
-                    )
-                    .toList(),
-              ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: listjenisTarif
+                  .map(
+                    (e) => RadioListTile(
+                      value: e,
+                      groupValue: indexStringListJenisTarif,
+                      title: Text(capitalize("$e")),
+                      onChanged: (dynamic value) {
+                        _stateSetterJenisTarif(() {
+                          indexStringListJenisTarif = value;
+                        });
+                      },
+                    ),
+                  )
+                  .toList(),
             ),
             actions: [
               TextButton(
@@ -117,25 +113,22 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
           return AlertDialog(
             title: Text("Jenis PS"),
             contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
-            content: Container(
-              color: Colors.white10,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: listJenisPS
-                    .map(
-                      (e) => RadioListTile(
-                        value: e,
-                        groupValue: indexStringListJenisPS,
-                        title: Text("$e"),
-                        onChanged: (dynamic value) {
-                          _stateSetterJenisPS(() {
-                            indexStringListJenisPS = value;
-                          });
-                        },
-                      ),
-                    )
-                    .toList(),
-              ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: listJenisPS
+                  .map(
+                    (e) => RadioListTile(
+                      value: e,
+                      groupValue: indexStringListJenisPS,
+                      title: Text("$e"),
+                      onChanged: (dynamic value) {
+                        _stateSetterJenisPS(() {
+                          indexStringListJenisPS = value;
+                        });
+                      },
+                    ),
+                  )
+                  .toList(),
             ),
             actions: [
               TextButton(
@@ -450,7 +443,6 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.4625,
                     child: ListTile(
-                      tileColor: Colors.white10,
                       leading: Icon(Icons.sort),
                       title: Text("Jenis Tarif"),
                       subtitle: Text(capitalize("$stringListJenisTarif"), overflow: TextOverflow.ellipsis),
@@ -465,7 +457,6 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.4625,
                     child: ListTile(
-                      tileColor: Colors.white10,
                       leading: Icon(Icons.sort),
                       title: Text("Jenis PS"),
                       subtitle: Text("$stringListJenisPS", overflow: TextOverflow.ellipsis),

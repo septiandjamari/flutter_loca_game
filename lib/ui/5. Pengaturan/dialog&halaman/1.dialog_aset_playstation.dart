@@ -73,26 +73,22 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
             _dialogKategoriBarangStateSetter = setState;
             return AlertDialog(
               title: Text("Pilih Kategori Barang"),
-              contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
-              content: Container(
-                color: Colors.white10,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: listJenisPS
-                      .map(
-                        (e) => RadioListTile(
-                          value: e["index"],
-                          groupValue: _indexRadioKategori,
-                          title: Text("${e["jenis_ps"]}"),
-                          onChanged: (dynamic value) {
-                            _dialogKategoriBarangStateSetter(() {
-                              _indexRadioKategori = value;
-                            });
-                          },
-                        ),
-                      )
-                      .toList(),
-                ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: listJenisPS
+                    .map(
+                      (e) => RadioListTile(
+                        value: e["index"],
+                        groupValue: _indexRadioKategori,
+                        title: Text("${e["jenis_ps"]}"),
+                        onChanged: (dynamic value) {
+                          _dialogKategoriBarangStateSetter(() {
+                            _indexRadioKategori = value;
+                          });
+                        },
+                      ),
+                    )
+                    .toList(),
               ),
               actions: [
                 TextButton(
@@ -169,7 +165,6 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
               ],
             ),
       insetPadding: EdgeInsets.all(24),
-      contentPadding: EdgeInsets.all(12),
       content: Container(
         width: MediaQuery.of(context).size.width,
         constraints: BoxConstraints(minHeight: 200, maxHeight: 360),
@@ -381,73 +376,70 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
-            color: Colors.white10,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                dialogPage == 1
-                    ? Container()
-                    : Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text("No. Meja"),
-                          ),
-                          TextFormField(
-                            controller: noMeja,
-                            keyboardType: TextInputType.number,
-                            decoration: InputDecoration(
-                              prefixIcon: Icon(
-                                Icons.tv,
-                              ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              dialogPage == 1
+                  ? Container()
+                  : Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text("No. Meja"),
+                        ),
+                        TextFormField(
+                          controller: noMeja,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            prefixIcon: Icon(
+                              Icons.tv,
                             ),
-                            onChanged: (_) {
-                              setState(() {
-                                noMejaString = _;
-                              });
-                            },
                           ),
-                        ],
-                      ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text("IP. Address"),
+                          onChanged: (_) {
+                            setState(() {
+                              noMejaString = _;
+                            });
+                          },
+                        ),
+                      ],
                     ),
-                    TextFormField(
-                      controller: ipAddress,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.alternate_email_outlined,
-                          ),
-                          hintText: "Isikan alamat IP Address"),
-                      onChanged: (_) {
-                        setState(() {
-                          ipAddressString = _;
-                        });
-                      },
-                    ),
-                  ],
-                ),
-                ListTile(
-                  leading: Icon(Icons.sort),
-                  title: Text("Jenis Playstation"),
-                  trailing: Text(indexRadioJenisPS == -1 ? "Pilih Jenis PS" : listJenisPS[indexRadioJenisPS]["jenis_ps"]),
-                  onTap: () {
-                    setState(() {
-                      ipAddress.text = ipAddressString;
-                      noMeja.text = noMejaString;
-                    });
-                    dialogRadioJenisPS(context: context);
-                  },
-                ),
-              ],
-            ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text("IP. Address"),
+                  ),
+                  TextFormField(
+                    controller: ipAddress,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                        prefixIcon: Icon(
+                          Icons.alternate_email_outlined,
+                        ),
+                        hintText: "Isikan alamat IP Address"),
+                    onChanged: (_) {
+                      setState(() {
+                        ipAddressString = _;
+                      });
+                    },
+                  ),
+                ],
+              ),
+              ListTile(
+                leading: Icon(Icons.sort),
+                title: Text("Jenis Playstation"),
+                trailing: Text(indexRadioJenisPS == -1 ? "Pilih Jenis PS" : listJenisPS[indexRadioJenisPS]["jenis_ps"]),
+                onTap: () {
+                  setState(() {
+                    ipAddress.text = ipAddressString;
+                    noMeja.text = noMejaString;
+                  });
+                  dialogRadioJenisPS(context: context);
+                },
+              ),
+            ],
           ),
         ],
       ),

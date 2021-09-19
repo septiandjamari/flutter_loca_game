@@ -147,7 +147,6 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
 
   @override
   Widget build(BuildContext context) {
-    
     return WillPopScope(
       onWillPop: () async {
         if (page == 0) {
@@ -248,10 +247,9 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
 
   Widget mainPage(BuildContext context) {
     double gridSize1 = MediaQuery.of(context).size.width / 11;
-    // double gridSize2 = MediaQuery.of(context).size.width / 2.5;
     double gridSize3 = MediaQuery.of(context).size.width / 3;
     double gridSize4 = MediaQuery.of(context).size.width / 2;
-    // double gridSize5 = MediaQuery.of(context).size.width / 4;
+
     return Container(
       constraints: BoxConstraints(
         minWidth: MediaQuery.of(context).size.width,
@@ -282,7 +280,6 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.475,
                     child: ListTile(
-                      tileColor: Colors.white10,
                       leading: Icon(Icons.sort),
                       title: Text("Kategori"),
                       subtitle: Text("kucing", overflow: TextOverflow.ellipsis),
@@ -296,7 +293,6 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.475,
                     child: ListTile(
-                      tileColor: Colors.white10,
                       leading: Icon(Icons.sort),
                       title: Text("Level Harga"),
                       subtitle: Text("kucing", overflow: TextOverflow.ellipsis),
@@ -572,20 +568,23 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
   Widget addEditPage() {
     bool isButtonActive() {
       return namaBarangString.trim() == "" &&
-                            hargaBeliString.trim() == "" &&
-                            hargaEcerString.trim() == "" &&
-                            hargaGrosirString.trim() == "" &&
-                            hargaAgenString.trim() == "" &&
-                            ubahStokString.trim() == "" &&
-                            kategoriString.trim() == "" ||
-                        namaBarangString.trim() == "" ||
-                        hargaBeliString.trim() == "" ||
-                        hargaEcerString.trim() == "" ||
-                        hargaGrosirString.trim() == "" ||
-                        hargaAgenString.trim() == "" ||
-                        ubahStokString.trim() == "" ||
-                        kategoriString.trim() == "" ? false : true;
+                  hargaBeliString.trim() == "" &&
+                  hargaEcerString.trim() == "" &&
+                  hargaGrosirString.trim() == "" &&
+                  hargaAgenString.trim() == "" &&
+                  ubahStokString.trim() == "" &&
+                  kategoriString.trim() == "" ||
+              namaBarangString.trim() == "" ||
+              hargaBeliString.trim() == "" ||
+              hargaEcerString.trim() == "" ||
+              hargaGrosirString.trim() == "" ||
+              hargaAgenString.trim() == "" ||
+              ubahStokString.trim() == "" ||
+              kategoriString.trim() == ""
+          ? false
+          : true;
     }
+
     if (page == 1) {
       setState(() {
         ubahStokString = "gak boleh kosong";
@@ -756,8 +755,8 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
                   primary: Colors.white,
                   backgroundColor: Colors.blue,
                 ),
-                onPressed: 
-                    isButtonActive() == false ? null
+                onPressed: isButtonActive() == false
+                    ? null
                     : () {
                         Map<String, dynamic> map;
                         if (page == 1) {

@@ -14,8 +14,10 @@ class _DialogTambahClientState extends State<DialogTambahClient> {
     return AlertDialog(
       backgroundColor: Colors.blue,
       title: Text("Tambah Client di PS3 di Meja 1"),
+      insetPadding: EdgeInsets.all(24),
       contentPadding: EdgeInsets.fromLTRB(0, 12, 0, 12),
       content: Container(
+        width: MediaQuery.of(context).size.width,
         constraints: BoxConstraints(maxHeight: MediaQuery.of(context).size.height * 0.5),
         child: DefaultTabController(
           length: 4,

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_loca_game/ui/1.%20toko/api_belanja_op.dart';
+import 'package:flutter_loca_game/ui/1.%20toko/api_belanja.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
 class HalamanUtamaToko extends StatefulWidget {
@@ -17,14 +17,6 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
   late LinkedScrollControllerGroup tablelinkedScrollController = LinkedScrollControllerGroup();
   ScrollController tableScrollController1 = ScrollController();
   ScrollController tableScrollController2 = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    tableScrollController1 = tablelinkedScrollController.addAndGet();
-    tableScrollController2 = tablelinkedScrollController.addAndGet();
-    viewBarang();
-  }
 
   List<dynamic> listDataTable = [];
 
@@ -46,13 +38,16 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    double gridSize1 = MediaQuery.of(context).size.width / 11;
-    // double gridSize2 = MediaQuery.of(context).size.width / 2.5;
-    double gridSize3 = MediaQuery.of(context).size.width / 3;
-    double gridSize4 = MediaQuery.of(context).size.width / 2;
-    double gridSize5 = MediaQuery.of(context).size.width / 4;
+  void initState() {
+    super.initState();
+    tableScrollController1 = tablelinkedScrollController.addAndGet();
+    tableScrollController2 = tablelinkedScrollController.addAndGet();
+    viewBarang();
+  }
 
+  @override
+  Widget build(BuildContext context) {
+    double lebar = MediaQuery.of(context).size.width;
     return Scaffold(
       resizeToAvoidBottomInset: true,
       body: Container(
@@ -119,7 +114,6 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.475,
                       child: ListTile(
-                        tileColor: Colors.white10,
                         leading: Icon(Icons.sort),
                         title: Text("Kategori"),
                         subtitle: Text("kucing", overflow: TextOverflow.ellipsis),
@@ -133,7 +127,6 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
                     child: Container(
                       width: MediaQuery.of(context).size.width * 0.475,
                       child: ListTile(
-                        tileColor: Colors.white10,
                         leading: Icon(Icons.sort),
                         title: Text("Level Harga"),
                         subtitle: Text("kucing", overflow: TextOverflow.ellipsis),
@@ -164,11 +157,11 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
                                   child: Row(
                                     children: [
                                       Container(
-                                        width: gridSize1,
+                                        width: lebar * 0.1,
                                         child: Center(child: Text("No.", style: TextStyle(fontSize: 16, color: Colors.white))),
                                       ),
                                       Container(
-                                        width: gridSize3,
+                                        width: lebar * 0.375,
                                         child: Text("Nama Barang", style: TextStyle(fontSize: 16, color: Colors.white)),
                                       ),
                                     ],
@@ -181,19 +174,19 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
                                     child: Row(
                                       children: [
                                         Container(
-                                          width: gridSize3,
+                                          width: lebar * 0.375,
                                           child: Text("Harga", style: TextStyle(fontSize: 16, color: Colors.white)),
                                         ),
                                         Container(
-                                          width: gridSize3,
+                                          width: lebar * 0.375,
                                           child: Text("Stok", style: TextStyle(fontSize: 16, color: Colors.white)),
                                         ),
                                         Container(
-                                          width: gridSize4,
+                                          width: lebar * 0.375,
                                           child: Text("Kategori", style: TextStyle(fontSize: 16, color: Colors.white)),
                                         ),
                                         Container(
-                                          width: gridSize5,
+                                          width: lebar * 0.225,
                                           child: Center(child: Text("Aksi", style: TextStyle(fontSize: 16, color: Colors.white))),
                                         ),
                                       ],
@@ -222,11 +215,11 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
                                             child: Row(
                                               children: [
                                                 Container(
-                                                  width: gridSize1,
+                                                  width: lebar * 0.1,
                                                   child: Center(child: Text("$index.", style: TextStyle(fontSize: 16))),
                                                 ),
                                                 Container(
-                                                  width: gridSize3,
+                                                  width: lebar * 0.375,
                                                   child: Text("${e["namabarang"]}", style: TextStyle(fontSize: 16)),
                                                 ),
                                               ],
@@ -249,25 +242,25 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
                                                 children: [
                                                   Center(
                                                     child: Container(
-                                                      width: gridSize3,
+                                                      width: lebar * 0.375,
                                                       child: Text("Rp.${e1["hargabeli"]}", style: TextStyle(fontSize: 16)),
                                                     ),
                                                   ),
                                                   Center(
                                                     child: Container(
-                                                      width: gridSize3,
+                                                      width: lebar * 0.375,
                                                       child: Text("${e1["stok"]}", style: TextStyle(fontSize: 16)),
                                                     ),
                                                   ),
                                                   Center(
                                                     child: Container(
-                                                      width: gridSize4,
+                                                      width: lebar * 0.375,
                                                       child: Text("${e1["kategori"]}", style: TextStyle(fontSize: 16)),
                                                     ),
                                                   ),
                                                   Container(
                                                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                                    width: gridSize5,
+                                                    width: lebar * 0.225,
                                                     child: TextButton(
                                                       style: TextButton.styleFrom(
                                                         onSurface: Colors.grey.shade900,

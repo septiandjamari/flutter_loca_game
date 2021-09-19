@@ -94,23 +94,18 @@ class _DialogShopState extends State<DialogShop> {
         return StatefulBuilder(builder: (BuildContext context, StateSetter setState) {
           return AlertDialog(
             title: Text("Beli $namaBarang"),
-            contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
-            content: Container(
-              color: Colors.white10,
-              padding: EdgeInsets.all(12),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("Stok Barang : $stokBarang"),
-                  Text("Jumlah Barang"),
-                  SizedBox(height: 20),
-                  TextFormField(
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(hintText: "0"),
-                  )
-                ],
-              ),
+            content: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text("Stok Barang : $stokBarang"),
+                Text("Jumlah Barang"),
+                SizedBox(height: 20),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(hintText: "0"),
+                )
+              ],
             ),
             actions: [
               TextButton(
@@ -142,25 +137,26 @@ class _DialogShopState extends State<DialogShop> {
             _dialogKategoriBarangStateSetter = setState;
             return AlertDialog(
               title: Text("Pilih Kategori Barang"),
-              contentPadding: EdgeInsets.fromLTRB(12, 12, 12, 0),
               content: Container(
-                color: Colors.white10,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: objekGlobal.ListObjectGlobal.listRadioKategori
-                      .map(
-                        (e) => RadioListTile(
-                          value: e.index,
-                          groupValue: _indexRadioKategori,
-                          title: Text("${e.keterangan}."),
-                          onChanged: (dynamic value) {
-                            _dialogKategoriBarangStateSetter(() {
-                              _indexRadioKategori = value;
-                            });
-                          },
-                        ),
-                      )
-                      .toList(),
+                constraints: BoxConstraints(maxHeight: 200),
+                child: SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: objekGlobal.ListObjectGlobal.listRadioKategori
+                        .map(
+                          (e) => RadioListTile(
+                            value: e.index,
+                            groupValue: _indexRadioKategori,
+                            title: Text("${e.keterangan}."),
+                            onChanged: (dynamic value) {
+                              _dialogKategoriBarangStateSetter(() {
+                                _indexRadioKategori = value;
+                              });
+                            },
+                          ),
+                        )
+                        .toList(),
+                  ),
                 ),
               ),
               actions: [
@@ -203,9 +199,7 @@ class _DialogShopState extends State<DialogShop> {
           Row(children: [Icon(Icons.attach_money_outlined), SizedBox(width: 6), Text("Rp.000")])
         ],
       ),
-      contentPadding: EdgeInsets.fromLTRB(12, 6, 12, 12),
       content: Container(
-        color: Colors.white10,
         width: MediaQuery.of(context).size.width,
         constraints: BoxConstraints(minHeight: 200, maxHeight: 360),
         child: Column(
@@ -213,7 +207,6 @@ class _DialogShopState extends State<DialogShop> {
           mainAxisSize: MainAxisSize.min,
           children: [
             Container(
-              color: Colors.white10,
               child: TextFormField(
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.search),
@@ -222,7 +215,6 @@ class _DialogShopState extends State<DialogShop> {
               ),
             ),
             ListTile(
-              tileColor: Colors.white10,
               leading: Icon(
                 Icons.sort,
               ),
@@ -231,16 +223,15 @@ class _DialogShopState extends State<DialogShop> {
               onTap: () {
                 dialogKategoriBarang(context);
               },
-              dense: true,
             ),
             Container(
               padding: EdgeInsets.symmetric(vertical: 10),
               color: Colors.blue,
               child: Row(
                 children: [
-                  Container(width: MediaQuery.of(context).size.width / 3, child: Text("Nama")),
+                  Container(width: MediaQuery.of(context).size.width / 4, child: Text("Nama")),
                   Container(width: MediaQuery.of(context).size.width / 4, child: Text("Harga")),
-                  Container(width: MediaQuery.of(context).size.width / 5, child: Center(child: Text("Aksi"))),
+                  Container(width: MediaQuery.of(context).size.width / 4, child: Center(child: Text("Aksi"))),
                 ],
               ),
             ),
@@ -254,10 +245,11 @@ class _DialogShopState extends State<DialogShop> {
                             color: e.index % 2 == 0 ? Colors.transparent : Colors.black12,
                             child: Row(
                               children: [
-                                Container(width: MediaQuery.of(context).size.width / 3, child: Text(e.nama)),
+                                Container(width: MediaQuery.of(context).size.width / 4, child: Text(e.nama)),
                                 Container(width: MediaQuery.of(context).size.width / 4, child: Text(e.harga)),
                                 Container(
-                                  width: MediaQuery.of(context).size.width / 5,
+                                  width: MediaQuery.of(context).size.width / 4,
+                                  padding: EdgeInsets.symmetric(horizontal: 12),
                                   child: TextButton(
                                     style: TextButton.styleFrom(
                                       primary: Colors.white,
