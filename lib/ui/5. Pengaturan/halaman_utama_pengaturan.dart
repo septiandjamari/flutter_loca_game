@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/1.dialog_aset_playstation.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/1.halaman_aset_playstation.dart';
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/2.halaman_daftar_dagangan.dart';
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/3.halaman_daftar_harga_paket_ps.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/4.dialog_daftar_operator.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/5.dialog_setting_point.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/6.dialog_setting_voucher.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/4.halaman_daftar_operator.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/5.halaman_setting_point.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/6.halaman_setting_voucher.dart';
 
 class HalamanUtamaPengaturan extends StatefulWidget {
   const HalamanUtamaPengaturan({Key? key}) : super(key: key);
@@ -28,7 +28,7 @@ class _HalamanUtamaPengaturanState extends State<HalamanUtamaPengaturan> {
             children: [
               ListTile(
                 onTap: () {
-                  showDialog(context: context, builder: (context) => DialogAsetPlaystation());
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HalamanAsetPlaystation()));
                 },
                 leading: Icon(
                   Icons.sports_esports,
@@ -61,7 +61,7 @@ class _HalamanUtamaPengaturanState extends State<HalamanUtamaPengaturan> {
               ),
               ListTile(
                 onTap: () {
-                  showDialog(context: context, builder: (context) => DialogDaftarOperator());
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HalamanDaftarOperator()));
                 },
                 leading: Icon(
                   Icons.people,
@@ -72,7 +72,7 @@ class _HalamanUtamaPengaturanState extends State<HalamanUtamaPengaturan> {
               ),
               ListTile(
                 onTap: () {
-                  showDialog(context: context, builder: (context) => DialogSettingPoint());
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HalamanSettingPoint()));
                 },
                 leading: Icon(
                   Icons.card_giftcard_outlined,
@@ -83,7 +83,7 @@ class _HalamanUtamaPengaturanState extends State<HalamanUtamaPengaturan> {
               ),
               ListTile(
                 onTap: () {
-                  showDialog(context: context, builder: (context) => DialogSettingVoucher());
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => HalamanSettingVoucher()));
                 },
                 leading: Icon(
                   Icons.confirmation_number,
