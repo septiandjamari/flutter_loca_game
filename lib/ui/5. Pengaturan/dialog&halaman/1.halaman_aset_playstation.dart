@@ -5,14 +5,14 @@ import 'package:flutter_loca_game/ui/5.%20Pengaturan/api/1.api_aset_playstation.
 import 'package:http/http.dart' as http;
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
-class DialogAsetPlaystation extends StatefulWidget {
-  const DialogAsetPlaystation({Key? key}) : super(key: key);
+class HalamanAsetPlaystation extends StatefulWidget {
+  const HalamanAsetPlaystation({Key? key}) : super(key: key);
 
   @override
-  _DialogAsetPlaystationState createState() => _DialogAsetPlaystationState();
+  _HalamanAsetPlaystationState createState() => _HalamanAsetPlaystationState();
 }
 
-class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
+class _HalamanAsetPlaystationState extends State<HalamanAsetPlaystation> {
   late LinkedScrollControllerGroup tablelinkedScrollController = LinkedScrollControllerGroup();
   ScrollController tableScrollController1 = ScrollController();
   ScrollController tableScrollController2 = ScrollController();
@@ -31,7 +31,7 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
     });
   }
 
-  int dialogPage = 0;
+  int page = 0;
   int indexRadioJenisPS = -1;
   int indexMapSelected = 0;
 
@@ -130,91 +130,49 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: dialogPage == 0
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Aset Playstation"),
-                TextButton.icon(
-                  style: TextButton.styleFrom(primary: Colors.white, backgroundColor: Colors.blue),
-                  onPressed: () {
-                    setState(() {
-                      dialogPage = 1;
-                    });
-                  },
-                  icon: Icon(Icons.add),
-                  label: Text("TAMBAH"),
-                ),
-              ],
-            )
-          : Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      setState(() {
-                        dialogPage = 0;
-                        indexRadioJenisPS = -1;
-                        ipAddress = TextEditingController(text: "");
-                        noMeja = TextEditingController(text: "");
-                      });
-                    },
-                    icon: Icon(Icons.arrow_back)),
-                SizedBox(width: 8),
-                Text(dialogPage == 1 ? "Tambah Aset PlayStation" : "Edit Aset Playstation"),
-              ],
-            ),
-      insetPadding: EdgeInsets.all(24),
-      content: Container(
-        width: MediaQuery.of(context).size.width,
-        constraints: BoxConstraints(minHeight: 200, maxHeight: 360),
-        child: dialogPage == 0 ? halamanAwal() : halamanTambahEdit(),
-      ),
-      actions: dialogPage == 0
-          ? []
-          : [
-              TextButton(
-                style: TextButton.styleFrom(primary: Colors.white, backgroundColor: Colors.blue),
-                onPressed: () {
-                  late Map<String, dynamic> map;
-                  print("dialogPage : " + dialogPage.toString());
-                  if (dialogPage == 1) {
-                    map = {
-                      "ip": ipAddress.text,
-                      "jenisps": listJenisPS[indexRadioJenisPS]["jenis_ps"],
-                    };
-                    ApiAsetPlaystation.tambahMeja(map: map).then((value) {
-                      setState(() {
-                        dialogPage = 0;
-                        indexRadioJenisPS = 0;
-                      });
-                      loadDataTable();
-                    });
-                  } else if (dialogPage == 2) {
-                    map = {
-                      "id": listDataTable[indexMapSelected]["id_ps"],
-                      "ip": ipAddress.text,
-                      "jenisps": listJenisPS[indexRadioJenisPS]["jenis_ps"],
-                      "nomormeja": noMeja.text
-                    };
-                    ApiAsetPlaystation.editMeja(map: map).then((value) {
-                      setState(() {
-                        dialogPage = 0;
-                        indexRadioJenisPS = 0;
-                      });
-                      loadDataTable();
-                    });
-                  }
-                  print(map);
-                },
-                child: Container(
-                  width: MediaQuery.of(context).size.width,
-                  child: Center(
-                    child: Text(dialogPage == 1 ? "TAMBAH ASET" : "SIMPAN PERUBAHAN"),
+    return WillPopScope(
+      onWillPop: () async {
+        if (page == 0) {
+          return true;
+        } else {
+          setState(() {
+            page = 0;
+            indexRadioJenisPS = -1;
+            ipAddress = TextEditingController(text: "");
+            noMeja = TextEditingController(text: "");
+          });
+          return false;
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(page == 0
+              ? "Aset Playstation"
+              : page == 1
+                  ? "Tambah Aset Playstation"
+                  : "Edit Aset Playstation"),
+          actions: page == 0
+              ? [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(primary: Colors.white, backgroundColor: Colors.blue, side: BorderSide(color: Colors.white, width: 1)),
+                      onPressed: () {
+                        setState(() {
+                          page = 1;
+                        });
+                      },
+                      icon: Icon(Icons.add),
+                      label: Text("TAMBAH"),
+                    ),
                   ),
-                ),
-              ),
-            ],
+                ]
+              : null,
+        ),
+        body: Container(
+          child: page == 0 ? halamanAwal() : halamanTambahEdit(),
+        ),
+      ),
     );
   }
 
@@ -227,7 +185,7 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
           child: Row(
             children: [
               Material(
-                  elevation: 4,
+                  elevation: 2,
                   color: Colors.blue,
                   child: Container(width: 300 * 0.125, child: Center(child: Text("No.", style: TextStyle(color: Colors.white))))),
               Expanded(
@@ -295,7 +253,7 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
                                         icon: Icon(Icons.edit, color: Colors.green),
                                         onPressed: () {
                                           setState(() {
-                                            dialogPage = 2;
+                                            page = 2;
                                             initEditState = 0;
                                             indexMapSelected = index;
                                           });
@@ -354,7 +312,7 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
 
   Widget halamanTambahEdit() {
     Map<String, dynamic> map = listDataTable[indexMapSelected];
-    if (dialogPage == 2 && initEditState == 0) {
+    if (page == 2 && initEditState == 0) {
       indexRadioJenisPS = map["jenis_ps"] == "PS3"
           ? 0
           : map["jenis_ps"] == "PS4"
@@ -373,75 +331,127 @@ class _DialogAsetPlaystationState extends State<DialogAsetPlaystation> {
       });
     }
     return SingleChildScrollView(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              dialogPage == 1
-                  ? Container()
-                  : Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text("No. Meja"),
-                        ),
-                        TextFormField(
-                          controller: noMeja,
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                            prefixIcon: Icon(
-                              Icons.tv,
-                            ),
+      child: Padding(
+        padding: const EdgeInsets.all(8),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                page == 1
+                    ? Container()
+                    : Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text("No. Meja"),
                           ),
-                          onChanged: (_) {
-                            setState(() {
-                              noMejaString = _;
-                            });
-                          },
-                        ),
-                      ],
+                          TextFormField(
+                            controller: noMeja,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              prefixIcon: Icon(
+                                Icons.tv,
+                              ),
+                            ),
+                            onChanged: (_) {
+                              setState(() {
+                                noMejaString = _;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text("IP. Address"),
                     ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text("IP. Address"),
-                  ),
-                  TextFormField(
-                    controller: ipAddress,
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                        prefixIcon: Icon(
-                          Icons.alternate_email_outlined,
-                        ),
-                        hintText: "Isikan alamat IP Address"),
-                    onChanged: (_) {
+                    TextFormField(
+                      controller: ipAddress,
+                      keyboardType: TextInputType.phone,
+                      decoration: InputDecoration(
+                          prefixIcon: Icon(
+                            Icons.alternate_email_outlined,
+                          ),
+                          hintText: "Isikan alamat IP Address"),
+                      onChanged: (_) {
+                        setState(() {
+                          ipAddressString = _;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                SizedBox(height: 16),
+                Material(
+                  elevation: 2,
+                  child: ListTile(
+                    leading: Icon(Icons.sort),
+                    title: Text("Jenis Playstation"),
+                    trailing: Text(indexRadioJenisPS == -1 ? "Pilih Jenis PS" : listJenisPS[indexRadioJenisPS]["jenis_ps"]),
+                    onTap: () {
                       setState(() {
-                        ipAddressString = _;
+                        ipAddress.text = ipAddressString;
+                        noMeja.text = noMejaString;
                       });
+                      dialogRadioJenisPS(context: context);
                     },
                   ),
-                ],
+                ),
+              ],
+            ),
+            SizedBox(height: 24),
+            FractionallySizedBox(
+              widthFactor: 1,
+              child: TextButton(
+                style: TextButton.styleFrom(primary: Colors.white, backgroundColor: Colors.blue),
+                onPressed: ipAddressString == "" && indexRadioJenisPS == -1 && noMejaString == "" ||
+                        ipAddressString == "" ||
+                        indexRadioJenisPS == -1 ||
+                        noMejaString == ""
+                    ? null
+                    : () {
+                        late Map<String, dynamic> map;
+                        print("page : " + page.toString());
+                        if (page == 1) {
+                          map = {
+                            "ip": ipAddress.text,
+                            "jenisps": listJenisPS[indexRadioJenisPS]["jenis_ps"],
+                          };
+                          ApiAsetPlaystation.tambahMeja(map: map).then((value) {
+                            setState(() {
+                              page = 0;
+                              indexRadioJenisPS = -1;
+                            });
+                            loadDataTable();
+                          });
+                        } else if (page == 2) {
+                          map = {
+                            "id": listDataTable[indexMapSelected]["id_ps"],
+                            "ip": ipAddress.text,
+                            "jenisps": listJenisPS[indexRadioJenisPS]["jenis_ps"],
+                            "nomormeja": noMeja.text
+                          };
+                          ApiAsetPlaystation.editMeja(map: map).then((value) {
+                            setState(() {
+                              page = 0;
+                              indexRadioJenisPS = -1;
+                            });
+                            loadDataTable();
+                          });
+                        }
+                        print(map);
+                      },
+                child: Text(page == 1 ? "TAMBAH ASET" : "SIMPAN PERUBAHAN"),
               ),
-              ListTile(
-                leading: Icon(Icons.sort),
-                title: Text("Jenis Playstation"),
-                trailing: Text(indexRadioJenisPS == -1 ? "Pilih Jenis PS" : listJenisPS[indexRadioJenisPS]["jenis_ps"]),
-                onTap: () {
-                  setState(() {
-                    ipAddress.text = ipAddressString;
-                    noMeja.text = noMejaString;
-                  });
-                  dialogRadioJenisPS(context: context);
-                },
-              ),
-            ],
-          ),
-        ],
+            ),
+          ],
+        ),
       ),
     );
   }

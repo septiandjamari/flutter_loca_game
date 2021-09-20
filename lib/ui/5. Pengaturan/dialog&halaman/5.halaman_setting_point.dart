@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/api/5.api_setting_point.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
-class DialogSettingPoint extends StatefulWidget {
-  const DialogSettingPoint({Key? key}) : super(key: key);
+class HalamanSettingPoint extends StatefulWidget {
+  const HalamanSettingPoint({Key? key}) : super(key: key);
 
   @override
-  _DialogSettingPointState createState() => _DialogSettingPointState();
+  _HalamanSettingPointState createState() => _HalamanSettingPointState();
 }
 
-class _DialogSettingPointState extends State<DialogSettingPoint> {
+class _HalamanSettingPointState extends State<HalamanSettingPoint> {
   late LinkedScrollControllerGroup tablelinkedScrollController = LinkedScrollControllerGroup();
   ScrollController tableScrollController1 = ScrollController();
   ScrollController tableScrollController2 = ScrollController();
@@ -63,7 +63,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
 
   void resetAllFormValue() {
     setState(() {
-      dialogPage = 0;
+      page = 0;
       indexListDataTable = -1;
       namaHadiah.text = "";
       jumlahPoint.text = "";
@@ -74,7 +74,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
     });
   }
 
-  int dialogPage = 0;
+  int page = 0;
   int initEditState = 0;
 
   @override
@@ -95,76 +95,44 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
-      title: dialogPage == 0
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("Setting Poin"),
-                TextButton.icon(
-                  style: TextButton.styleFrom(primary: Colors.white, backgroundColor: Colors.blue),
-                  onPressed: () {
-                    setState(() {
-                      dialogPage = 1;
-                    });
-                  },
-                  icon: Icon(Icons.add),
-                  label: Text("TAMBAH HADIAH"),
-                ),
-              ],
-            )
-          : Row(
-              children: [
-                IconButton(
-                  onPressed: () {
-                    resetAllFormValue();
-                  },
-                  icon: Icon(Icons.arrow_back),
-                ),
-                SizedBox(width: 8),
-                Text(dialogPage == 1 ? "Tambah Hadiah" : "Update Hadiah"),
-              ],
-            ),
-      insetPadding: EdgeInsets.all(24),
-      content: Container(
-        width: MediaQuery.of(context).size.width,
-        constraints: BoxConstraints(minHeight: 200, maxHeight: 360),
-        child: dialogPage == 0 ? halamanAwal(context) : halamanTambahEdit(),
+    return WillPopScope(
+      onWillPop: () async {
+        if (page == 0) {
+          return true;
+        } else {
+          resetAllFormValue();
+          return false;
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(page == 0
+              ? "Setting point"
+              : page == 1
+                  ? "Tambah Hadiah"
+                  : "Update Hadiah"),
+          actions: page == 0
+              ? [
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: OutlinedButton.icon(
+                      style: OutlinedButton.styleFrom(primary: Colors.white, backgroundColor: Colors.blue, side: BorderSide(color: Colors.white, width: 1)),
+                      onPressed: () {
+                        setState(() {
+                          page = 1;
+                        });
+                      },
+                      icon: Icon(Icons.add),
+                      label: Text("TAMBAH HADIAH"),
+                    ),
+                  ),
+                ]
+              : null,
+        ),
+        body: Container(
+          child: page == 0 ? halamanAwal(context) : halamanTambahEdit(),
+        ),
       ),
-      actions: dialogPage == 0
-          ? null
-          : [
-              FractionallySizedBox(
-                widthFactor: 1,
-                child: TextButton.icon(
-                  style: TextButton.styleFrom(primary: Colors.white, backgroundColor: Colors.blue),
-                  onPressed: namaHadiahString == "" && jumlahPointString == "" && keteranganString == "" ||
-                          namaHadiahString == "" ||
-                          jumlahPointString == "" ||
-                          keteranganString == ""
-                      ? null
-                      : () {
-                          Map<String, dynamic> map = {
-                            "idpoint": dialogPage == 1 ? "" : listDataTable[indexListDataTable]["idpoint"],
-                            "namahadiah": namaHadiah.text,
-                            "jumlahpoint": jumlahPoint.text,
-                            "keterangan": keterangan.text,
-                          };
-                          dialogPage == 1
-                              ? ApiSettingPoint.ngeAddPoint(map).then((value) {
-                                  resetAllFormValue();
-                                  loadDataTable();
-                                })
-                              : ApiSettingPoint.ngeditPoint(map).then((value) {
-                                  resetAllFormValue();
-                                  loadDataTable();
-                                });
-                        },
-                  icon: dialogPage == 1 ? Icon(Icons.add) : Icon(Icons.edit),
-                  label: Text(dialogPage == 1 ? "TAMBAH HADIAH" : "UPDATE HADIAH"),
-                ),
-              )
-            ],
     );
   }
 
@@ -173,34 +141,42 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Setting nilai deposit setiap point"),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Flexible(
-              child: Container(
-                child: TextFormField(
-                  controller: nilaiDeposit,
-                  enabled: nilaiDepositEnabled,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(hintText: "Masukkan nilai deposit"),
-                  onChanged: (_) {
-                    setState(() {
-                      nilaiDepositString = _;
-                    });
-                  },
-                ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Setting nilai deposit setiap point"),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Flexible(
+                    child: Container(
+                      child: TextFormField(
+                        controller: nilaiDeposit,
+                        enabled: nilaiDepositEnabled,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(hintText: "Masukkan nilai deposit"),
+                        onChanged: (_) {
+                          setState(() {
+                            nilaiDepositString = _;
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                  TextButton(
+                    onPressed: nilaiDepositString == ""
+                        ? null
+                        : () {
+                            setNilaiDeposit();
+                          },
+                    child: Text("SAVE"),
+                  ),
+                ],
               ),
-            ),
-            TextButton(
-              onPressed: nilaiDepositString == ""
-                  ? null
-                  : () {
-                      setNilaiDeposit();
-                    },
-              child: Text("SAVE"),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: 8),
         Container(
@@ -209,7 +185,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
           child: Row(
             children: [
               Material(
-                  elevation: 4,
+                  elevation: 2,
                   color: Colors.blue,
                   child: Container(width: lebar * 0.125, child: Center(child: Text("No.", style: TextStyle(color: Colors.white))))),
               Expanded(
@@ -229,7 +205,12 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
             ],
           ),
         ),
-        Expanded(
+        listDataTable.isEmpty ? Column(
+          children: [
+            SizedBox(height: 60),
+            Center(child: Text("Belum ada entry data dari database"),),
+          ],
+        ) : Expanded(
           child: SingleChildScrollView(
             scrollDirection: Axis.vertical,
             child: Row(
@@ -239,7 +220,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
                   children: listDataTable.map((e) {
                     int index = listDataTable.indexOf(e) + 1;
                     return Material(
-                      elevation: 4,
+                      elevation: 2,
                       child: Container(
                         color: index % 2 == 0 ? Colors.transparent : Colors.black12,
                         height: 60,
@@ -277,7 +258,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
                                         icon: Icon(Icons.edit, color: Colors.green),
                                         onPressed: () {
                                           setState(() {
-                                            dialogPage = 2;
+                                            page = 2;
                                             initEditState = 0;
                                             indexListDataTable = index;
                                           });
@@ -337,7 +318,7 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
   }
 
   Widget halamanTambahEdit() {
-    if (dialogPage == 2 && initEditState == 0) {
+    if (page == 2 && initEditState == 0) {
       setState(() {
         namaHadiah.text = listDataTable[indexListDataTable]["namahadiah"];
         jumlahPoint.text = listDataTable[indexListDataTable]["jumlahpoint"].toString();
@@ -349,64 +330,98 @@ class _DialogSettingPointState extends State<DialogSettingPoint> {
       });
     }
     return SingleChildScrollView(
-      child: Column(
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16),
-              Text("Nama Hadiah", style: TextStyle(fontSize: 16)),
-              TextFormField(
-                controller: namaHadiah,
-                decoration: InputDecoration(
-                  hintText: "Nama Hadiah",
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16),
+                Text("Nama Hadiah", style: TextStyle(fontSize: 16)),
+                TextFormField(
+                  controller: namaHadiah,
+                  decoration: InputDecoration(
+                    hintText: "Nama Hadiah",
+                  ),
+                  onChanged: (_) {
+                    setState(() {
+                      namaHadiahString = _;
+                    });
+                  },
                 ),
-                onChanged: (_) {
-                  setState(() {
-                    namaHadiahString = _;
-                  });
-                },
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16),
-              Text("Jumlah Point", style: TextStyle(fontSize: 16)),
-              TextFormField(
-                controller: jumlahPoint,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  hintText: "Jumlah Point",
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16),
+                Text("Jumlah Point", style: TextStyle(fontSize: 16)),
+                TextFormField(
+                  controller: jumlahPoint,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    hintText: "Jumlah Point",
+                  ),
+                  onChanged: (_) {
+                    setState(() {
+                      jumlahPointString = _;
+                    });
+                  },
                 ),
-                onChanged: (_) {
-                  setState(() {
-                    jumlahPointString = _;
-                  });
-                },
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(height: 16),
-              Text("Keterangan", style: TextStyle(fontSize: 16)),
-              TextFormField(
-                controller: keterangan,
-                decoration: InputDecoration(
-                  hintText: "Keterangan",
+              ],
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: 16),
+                Text("Keterangan", style: TextStyle(fontSize: 16)),
+                TextFormField(
+                  controller: keterangan,
+                  decoration: InputDecoration(
+                    hintText: "Keterangan",
+                  ),
+                  onChanged: (_) {
+                    setState(() {
+                      keteranganString = _;
+                    });
+                  },
                 ),
-                onChanged: (_) {
-                  setState(() {
-                    keteranganString = _;
-                  });
-                },
+              ],
+            ),
+            SizedBox(height: 24),
+            FractionallySizedBox(
+              widthFactor: 1,
+              child: TextButton.icon(
+                style: TextButton.styleFrom(primary: Colors.white, backgroundColor: Colors.blue),
+                onPressed: namaHadiahString == "" && jumlahPointString == "" && keteranganString == "" ||
+                        namaHadiahString == "" ||
+                        jumlahPointString == "" ||
+                        keteranganString == ""
+                    ? null
+                    : () {
+                        Map<String, dynamic> map = {
+                          "idpoint": page == 1 ? "" : listDataTable[indexListDataTable]["idpoint"],
+                          "namahadiah": namaHadiah.text,
+                          "jumlahpoint": jumlahPoint.text,
+                          "keterangan": keterangan.text,
+                        };
+                        page == 1
+                            ? ApiSettingPoint.ngeAddPoint(map).then((value) {
+                                resetAllFormValue();
+                                loadDataTable();
+                              })
+                            : ApiSettingPoint.ngeditPoint(map).then((value) {
+                                resetAllFormValue();
+                                loadDataTable();
+                              });
+                      },
+                icon: page == 1 ? Icon(Icons.add) : Icon(Icons.edit),
+                label: Text(page == 1 ? "TAMBAH HADIAH" : "UPDATE HADIAH"),
               ),
-            ],
-          ),
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

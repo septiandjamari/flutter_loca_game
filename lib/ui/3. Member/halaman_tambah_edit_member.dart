@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_loca_game/autentikasi/auth_service.dart';
 import 'package:flutter_loca_game/ui/3.%20Member/api_member.dart';
 
 class HalamanTambahEditMember extends StatefulWidget {
@@ -186,11 +187,23 @@ class _HalamanTambahEditMemberState extends State<HalamanTambahEditMember> {
                               depositString == "" ||
                               masaAktifString == ""
                           ? null
-                          : () {
+                          : () async {
                               Map<String, dynamic> map = {
+                                "operator": await AuthService.getCredential(),
+                                "nomorps": 0,
                                 "idmember": widget.addOrEdit == "add" ? "" : widget.map["idmember"],
                                 "username": username.text,
                                 "jenisps": stringListJenisPS,
+                                "jenistarif": "deposit member",
+                                "mulai": 0,
+                                "selesai": 0,
+                                "durasi": 0,
+                                "rental": 0,
+                                "shop": 0,
+                                "total": deposit.text,
+                                "bayar": 0,
+                                "kembalian": 0,
+                                "keranjang": 0,
                                 "deposit": deposit.text,
                                 "masaaktif": masaAktif.text,
                               };
@@ -198,10 +211,12 @@ class _HalamanTambahEditMemberState extends State<HalamanTambahEditMember> {
                               widget.addOrEdit == "add"
                                   ? ApiMember.addListMember(map).then((value) {
                                       Navigator.pop(context);
+                                      
                                     })
                                   : ApiMember.editMember(map).then((value) {
                                       Navigator.pop(context);
                                     });
+
                             },
                       icon: Icon(widget.addOrEdit == "add" ? Icons.add : Icons.edit),
                       label: Text(widget.addOrEdit == "add" ? "TAMBAH MEMBER" : "PERBARUI MEMBER"),

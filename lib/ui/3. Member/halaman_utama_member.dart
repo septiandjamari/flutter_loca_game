@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_loca_game/ui/3.%20Member/api_member.dart';
-import 'package:flutter_loca_game/ui/3.%20Member/halaman_claim_hadiah.dart';
+// import 'package:flutter_loca_game/ui/3.%20Member/halaman_claim_hadiah.dart';
 import 'package:flutter_loca_game/ui/3.%20Member/halaman_tambah_edit_member.dart';
 import 'package:intl/intl.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
@@ -76,7 +76,6 @@ class _HalamanUtamaMemberState extends State<HalamanUtamaMember> {
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
       child: Column(
         children: [
           Container(
@@ -138,6 +137,13 @@ class _HalamanUtamaMemberState extends State<HalamanUtamaMember> {
                       child: Column(
                         children: listDataTable.map((e1) {
                           int index = listDataTable.indexOf(e1);
+                          String _printDuration(Duration duration) {
+                            String twoDigits(int n) => n.toString().padLeft(2, "0");
+                            String twoDigitMinutes = twoDigits(duration.inMinutes.remainder(60));
+                            String twoDigitSeconds = twoDigits(duration.inSeconds.remainder(60));
+                            return "${twoDigits(duration.inHours)}:$twoDigitMinutes:$twoDigitSeconds";
+                          }
+
                           return Container(
                             color: index % 2 != 0 ? Colors.transparent : Colors.black12,
                             height: 60,
@@ -145,7 +151,7 @@ class _HalamanUtamaMemberState extends State<HalamanUtamaMember> {
                               children: [
                                 Container(width: lebar * 0.275, child: Text("${e1["username"]}")),
                                 Container(width: lebar * 0.275, child: Text("${e1["jenisps"]}")),
-                                Container(width: lebar * 0.275, child: Text("Rp.${e1["sisasaldo"]}")),
+                                Container(width: lebar * 0.275, child: Text(_printDuration(Duration(seconds: e1["sisasaldo"])))),
                                 Container(width: lebar * 0.275, child: Text("Rp.${e1["deposit"]}")),
                                 Container(
                                     width: lebar * 0.375,

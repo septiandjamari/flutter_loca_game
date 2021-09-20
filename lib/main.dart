@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         localizationsDelegates: [GlobalMaterialLocalizations.delegate],
         supportedLocales: [Locale('id')],
         title: 'Loca Game',
-        theme: ThemeData.dark(),
+        theme: ThemeData(),
         home: PageWrapper(),
       ),
     );

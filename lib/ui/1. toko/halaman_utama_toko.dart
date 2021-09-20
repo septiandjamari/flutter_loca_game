@@ -49,7 +49,6 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
   Widget build(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
     return Scaffold(
-      resizeToAvoidBottomInset: true,
       body: Container(
         constraints: BoxConstraints(minWidth: MediaQuery.of(context).size.width, minHeight: MediaQuery.of(context).size.height),
         child: Column(

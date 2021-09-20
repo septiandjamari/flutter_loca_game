@@ -94,7 +94,7 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
   }
 
   List<String> listJenisPS = ["PS3", "PS4", "PS5"];
-  String stringListJenisPS = "PS3";
+  String stringListJenisPS = "";
   late StateSetter _stateSetterJenisPS;
 
   void actionJenisPSListener(String index) {
@@ -154,7 +154,7 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
   void resetAllFormValue() {
     setState(() {
       page = 0;
-      stringListJenisPS = "PS3";
+      stringListJenisPS = "";
       stringListJenisTarif = "personal";
       namaTarif.text = "";
       biayaAwal.text = "";
@@ -251,11 +251,6 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
   Widget halamanAwal(BuildContext context) {
     double lebar = MediaQuery.of(context).size.width;
     return Container(
-      padding: EdgeInsets.fromLTRB(8, 8, 8, 0),
-      constraints: BoxConstraints(
-        minWidth: MediaQuery.of(context).size.width,
-        minHeight: MediaQuery.of(context).size.height,
-      ),
       child: Column(
         children: [
           Container(
@@ -264,7 +259,7 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
             child: Row(
               children: [
                 Material(
-                    elevation: 4,
+                    elevation: 2,
                     color: Colors.blue,
                     child: Container(width: lebar * 0.125, child: Center(child: Text("No.", style: TextStyle(color: Colors.white))))),
                 Expanded(
@@ -295,7 +290,7 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
                     children: listDataTable.map((e) {
                       int index = listDataTable.indexOf(e) + 1;
                       return Material(
-                        elevation: 4,
+                        elevation: 2,
                         child: Container(
                           color: index % 2 == 0 ? Colors.transparent : Colors.black12,
                           height: 60,
@@ -412,12 +407,13 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
     }
     bool isButtonActive() {
       if (stringListJenisTarif == "personal") {
-        return namaTarifString == "" && biayaAwalString == "" && durasiAwalString == "" && biayaSelanjutnyaString == "" && durasiSelanjutnyaString == "" ||
+        return namaTarifString == "" && biayaAwalString == "" && durasiAwalString == "" && biayaSelanjutnyaString == "" && durasiSelanjutnyaString == ""  && stringListJenisPS == ""||
                 namaTarifString == "" ||
                 biayaAwalString == "" ||
                 durasiAwalString == "" ||
                 biayaSelanjutnyaString == "" ||
-                durasiSelanjutnyaString == ""
+                durasiSelanjutnyaString == "" ||
+                stringListJenisPS == ""
             ? false
             : true;
       } else if (stringListJenisTarif == "paket") {
@@ -439,7 +435,7 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Material(
-                  elevation: 4,
+                  elevation: 2,
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.4625,
                     child: ListTile(
@@ -453,7 +449,7 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
                   ),
                 ),
                 Material(
-                  elevation: 4,
+                  elevation: 2,
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.4625,
                     child: ListTile(

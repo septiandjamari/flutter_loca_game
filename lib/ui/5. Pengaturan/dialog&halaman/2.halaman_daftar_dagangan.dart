@@ -276,7 +276,7 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Material(
-                  elevation: 4,
+                  elevation: 2,
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.475,
                     child: ListTile(
@@ -289,7 +289,7 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
                   ),
                 ),
                 Material(
-                  elevation: 4,
+                  elevation: 2,
                   child: Container(
                     width: MediaQuery.of(context).size.width * 0.475,
                     child: ListTile(
@@ -318,7 +318,7 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
                           child: Row(
                             children: [
                               Material(
-                                elevation: 4,
+                                elevation: 2,
                                 color: Colors.blue,
                                 child: Row(
                                   children: [
@@ -378,7 +378,7 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
                                     children: listDataTable.map((e) {
                                       var index = listDataTable.indexOf(e) + 1;
                                       return Material(
-                                        elevation: 4,
+                                        elevation: 2,
                                         child: Container(
                                           color: index % 2 == 0 ? Colors.transparent : Colors.black12,
                                           height: 60,

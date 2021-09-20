@@ -7,18 +7,20 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthService {
   static String spCred = "spCred";
+  static String spFile = "spFile";
   static String spRole = "spRole";
   static String spStatus = "spStatus";
   static String spUser = "spUser";
 
   // static String url = "http://192.168.0.150:5000"; // wifi kak raf
-  // static String url = "http://192.168.43.115:5000"; // wifi hp laptop
-  static String url = "http://192.168.43.9:5000"; // wifi hp komputer
+  static String url = "http://192.168.43.115:5000"; // wifi hp laptop
+  // static String url = "http://192.168.43.9:5000"; // wifi hp komputer
 
-  static Future<http.Response> login({required String username, required String password}) async {
+  static Future<http.Response> login({required String username, required String password, String? lisensi}) async {
+    print("Api Login Dijankan...");
     http.Response response = await http.post(
       Uri.parse("$url/user/login"),
-      body: jsonEncode({"username": username, "password": password}),
+      body: jsonEncode({"username": username, "password": password, "file": lisensi}),
       headers: {"Content-Type": "application/json"},
     );
     if (response.statusCode == 200) {
@@ -55,6 +57,7 @@ class AuthService {
   static Future<void> setUserInfo({required Map<String, dynamic> mapBody}) async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     sp.setString(spCred, mapBody["cred"]);
+    sp.setString(spFile, mapBody["file"]);
     sp.setString(spRole, mapBody["role"]);
     sp.setBool(spStatus, mapBody["status"]);
     sp.setString(spUser, mapBody["user"]);

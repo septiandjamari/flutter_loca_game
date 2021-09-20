@@ -88,7 +88,6 @@ class _HalamanUtamaState extends State<HalamanUtama> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         brightness: Brightness.dark,
         title: listTitle[_page],
@@ -105,8 +104,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
                           width: 1,
                         )),
                     onPressed: () {
-                      Navigator.push(
-                        context,
+                      Navigator.of(context, rootNavigator: true).push(
                         MaterialPageRoute(
                           builder: (context) => HalamanTambahEditMember(addOrEdit: "add", map: {}),
                         ),
