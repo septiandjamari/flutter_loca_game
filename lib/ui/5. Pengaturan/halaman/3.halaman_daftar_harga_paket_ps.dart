@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/api/3.api_daftar_harga_paket_ps.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 
@@ -220,7 +221,7 @@ class _HalamanDaftarHargaPaketPSState extends State<HalamanDaftarHargaPaketPS> {
               : page == 1
                   ? Text("Tambah Paket PS")
                   : Text("Edit Paket PS"),
-          brightness: Brightness.dark,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
           actions: [
             page == 0
                 ? Padding(

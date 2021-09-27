@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_loca_game/autentikasi/auth_service.dart';
-import 'package:flutter_loca_game/ui/3.%20Member/api_member.dart';
+import 'package:flutter_loca_game/ui/3.%20Member/api/api_member.dart';
 
 class HalamanTambahEditMember extends StatefulWidget {
   const HalamanTambahEditMember({Key? key, required this.addOrEdit, required this.map}) : super(key: key);
@@ -211,12 +211,10 @@ class _HalamanTambahEditMemberState extends State<HalamanTambahEditMember> {
                               widget.addOrEdit == "add"
                                   ? ApiMember.addListMember(map).then((value) {
                                       Navigator.pop(context);
-                                      
                                     })
                                   : ApiMember.editMember(map).then((value) {
                                       Navigator.pop(context);
                                     });
-
                             },
                       icon: Icon(widget.addOrEdit == "add" ? Icons.add : Icons.edit),
                       label: Text(widget.addOrEdit == "add" ? "TAMBAH MEMBER" : "PERBARUI MEMBER"),

@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_loca_game/ui/3.%20Member/api_member.dart';
+import 'package:flutter_loca_game/ui/3.%20Member/api/api_member.dart';
 // import 'package:flutter_loca_game/ui/3.%20Member/halaman_claim_hadiah.dart';
-import 'package:flutter_loca_game/ui/3.%20Member/halaman_tambah_edit_member.dart';
+import 'package:flutter_loca_game/ui/3.%20Member/halaman/halaman_tambah_edit_member.dart';
 import 'package:intl/intl.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
 

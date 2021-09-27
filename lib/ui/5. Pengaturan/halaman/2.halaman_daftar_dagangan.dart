@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/api/2.api_daftar_dagangan.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
@@ -159,7 +160,7 @@ class _HalamanDaftarDaganganState extends State<HalamanDaftarDagangan> {
       child: Scaffold(
         // resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          brightness: Brightness.dark,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
           title: FittedBox(
             fit: BoxFit.fitWidth,
             child: Text(

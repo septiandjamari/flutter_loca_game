@@ -268,7 +268,9 @@ class _HalamanUtamaTokoState extends State<HalamanUtamaToko> {
                                                         backgroundColor: Colors.yellow,
                                                       ),
                                                       onPressed: e1["stok"] != 0 ? () {} : null,
-                                                      child: Text("TAMBAH"),
+                                                      child: FittedBox(
+                                                        fit: BoxFit.fitWidth,
+                                                        child: Text("TAMBAH")),
                                                     ),
                                                   ),
                                                 ],

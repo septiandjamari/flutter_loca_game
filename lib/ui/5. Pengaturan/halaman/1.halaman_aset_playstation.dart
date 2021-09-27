@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/api/1.api_aset_playstation.dart';
 import 'package:http/http.dart' as http;
 import 'package:linked_scroll_controller/linked_scroll_controller.dart';
@@ -146,6 +147,7 @@ class _HalamanAsetPlaystationState extends State<HalamanAsetPlaystation> {
       },
       child: Scaffold(
         appBar: AppBar(
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
           title: Text(page == 0
               ? "Aset Playstation"
               : page == 1

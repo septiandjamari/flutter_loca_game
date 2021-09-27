@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_loca_game/autentikasi/auth_service.dart';
 import 'package:flutter_loca_game/ui/1.%20toko/halaman_utama_toko.dart';
 import 'package:flutter_loca_game/ui/2.%20billing/2.%20halaman_utama_billing.dart';
-import 'package:flutter_loca_game/ui/3.%20Member/halaman_tambah_edit_member.dart';
+import 'package:flutter_loca_game/ui/3.%20Member/halaman/halaman_tambah_edit_member.dart';
 import 'package:flutter_loca_game/ui/3.%20Member/halaman_utama_member.dart';
+import 'package:flutter_loca_game/ui/4.laporan/halaman_utama_laporan.dart';
 import 'package:flutter_loca_game/ui/5.%20Pengaturan/halaman_utama_pengaturan.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -21,9 +23,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
     HalamanUtamaToko(),
     HalamanUtamaBilling(),
     HalamanUtamaMember(),
-    Container(
-      child: Text("Laporan"),
-    ),
+    HalamanUtamaLaporan(),
   ];
   List<Widget> listTitle = [
     Text("Toko"),
@@ -89,7 +89,7 @@ class _HalamanUtamaState extends State<HalamanUtama> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.light,
         title: listTitle[_page],
         actions: _page == 2
             ? [

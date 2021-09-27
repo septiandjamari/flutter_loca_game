@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/1.halaman_aset_playstation.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/2.halaman_daftar_dagangan.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/3.halaman_daftar_harga_paket_ps.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/4.halaman_daftar_operator.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/5.halaman_setting_point.dart';
-import 'package:flutter_loca_game/ui/5.%20Pengaturan/dialog&halaman/6.halaman_setting_voucher.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/halaman/1.halaman_aset_playstation.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/halaman/2.halaman_daftar_dagangan.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/halaman/3.halaman_daftar_harga_paket_ps.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/halaman/4.halaman_daftar_operator.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/halaman/5.halaman_setting_point.dart';
+import 'package:flutter_loca_game/ui/5.%20Pengaturan/halaman/6.halaman_setting_voucher.dart';
 
 class HalamanUtamaPengaturan extends StatefulWidget {
   const HalamanUtamaPengaturan({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class _HalamanUtamaPengaturanState extends State<HalamanUtamaPengaturan> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        brightness: Brightness.dark,
+        systemOverlayStyle: SystemUiOverlayStyle.dark,
         title: Text("Pengaturan"),
       ),
       body: Container(
